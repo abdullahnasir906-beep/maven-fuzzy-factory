@@ -1,31 +1,68 @@
-# Maven Fuzzy Factory — E-Commerce Business Analysis
+# Maven Fuzzy Factory — E-Commerce Diagnostic Analytics
 
 **Author:** Abdullah Nasir  
 **Database:** `maven_fuzzy_factory`  
 **Tools:** MySQL Workbench, SQL, Power BI  
-**Project Type:** E-Commerce Business Intelligence & Data Analytics
-
----
+**Project Type:** E-Commerce Business Intelligence & Diagnostic Data Analytics
 
 ## 1. Project Overview
 
-This project analyzes the operational data of Maven Fuzzy Factory, an e-commerce business, to understand its sales performance, product profitability, customer purchasing behavior, website acquisition channels, conversion performance, monthly business trends, and refund activity.
+This project investigates the business performance of Maven Fuzzy Factory, an e-commerce business, using transactional and website activity data.
 
-Using SQL, I performed data profiling, data quality checks, relationship validation, and business analysis across six operational tables.
+The primary objective is to move beyond reporting business performance metrics and investigate the factors and patterns associated with observed business outcomes.
 
-The analysis focuses on translating raw transactional and website activity data into meaningful business insights that can support better commercial and marketing decisions.
+Using SQL, I performed data profiling, data quality assessment, relationship validation, and diagnostic business analysis across six operational tables.
+
+The analysis investigates:
+
+- Sales and gross profitability performance.
+- Product revenue contribution and profitability differences.
+- Customer purchasing frequency and retention patterns.
+- Acquisition source and device-level conversion differences.
+- Monthly revenue and order growth patterns.
+- Product-level refund exposure and revenue impact.
+
+The project emphasizes identifying performance gaps, comparing business segments, investigating possible contributing factors, and translating analytical findings into business recommendations.
+
+**Analytical Approach:** Descriptive Analytics foundation followed by Diagnostic Analytics.
 
 ## 2. Business Objectives
 
-The main objective is to evaluate business performance and identify opportunities for improvement through data analysis.
+The project investigates five major business areas.
 
-The analysis addresses five key areas:
+### 2.1 Sales & Profitability
 
-1. **Sales Performance** — Evaluate revenue, cost of goods sold, gross profit, profit margin, and average order value.
-2. **Product Performance** — Identify top-performing products based on revenue, gross profit, and profitability.
-3. **Customer Behavior** — Understand customer purchasing frequency and compare one-time and repeat customer contributions.
-4. **Marketing & Conversion** — Evaluate acquisition sources, website traffic, and conversion performance across acquisition channels and devices.
-5. **Business Trends & Refunds** — Analyze monthly performance, year-over-year trends, product revenue patterns, and refund impact.
+- Evaluate revenue, COGS, gross profit, gross profit margin, and average order value.
+- Investigate the relationship between revenue contribution and product profitability.
+- Identify products contributing most significantly to overall gross profit.
+
+### 2.2 Product Performance
+
+- Compare product revenue contributions.
+- Investigate differences in gross profit margins.
+- Examine product-level refund exposure.
+- Identify products requiring further profitability and refund investigation.
+
+### 2.3 Customer Behavior
+
+- Compare one-time and repeat customer purchasing patterns.
+- Evaluate customer revenue contributions.
+- Investigate the extent of customer purchasing concentration.
+- Identify potential customer retention opportunities.
+
+### 2.4 Marketing & Conversion
+
+- Compare acquisition source traffic and conversion rates.
+- Investigate conversion differences between desktop and mobile sessions.
+- Identify acquisition channels with relatively stronger or weaker conversion performance.
+- Evaluate potential website optimization opportunities.
+
+### 2.5 Business Trends & Refunds
+
+- Compare monthly revenue and order growth between 2013 and 2014.
+- Investigate product revenue development over time.
+- Evaluate refund exposure against recorded revenue.
+- Identify areas requiring additional operational investigation.
 
 ## 3. Dataset Overview
 
@@ -33,13 +70,13 @@ The project uses six operational tables and one data dictionary table.
 
 | Table | Description |
 |---|---|
-| `website_sessions` | Website traffic, acquisition sources, users, and device information |
-| `website_pageviews` | Website pageview activity and session navigation |
-| `products` | Product information and product creation dates |
-| `orders` | Order transactions, customer identifiers, revenue, and COGS |
-| `order_items` | Product-level order records and associated sales values |
-| `order_item_refunds` | Refund transactions associated with order items |
-| `data_dictionary` | Reference information describing the dataset fields |
+| website_sessions | Website traffic, acquisition sources, users, and device information |
+| website_pageviews | Pageview activity and session navigation |
+| products | Product information and product creation dates |
+| orders | Order transactions, customer identifiers, revenue, and COGS |
+| order_items | Product-level order records and associated sales values |
+| order_item_refunds | Refund transactions associated with order items |
+| data_dictionary | Reference information describing dataset fields |
 
 ### Dataset Record Counts
 
@@ -58,23 +95,23 @@ The latest recorded order date is 19 March 2015, while refund records extend to 
 
 ## 4. Data Analysis Workflow
 
-The project follows a structured analytical workflow:
-
 ### Step 1 — Database Setup
 
-- Created the project database and operational tables.
-- Imported the raw dataset into MySQL.
-- Reviewed the database structure and available fields.
+- Created the project database.
+- Imported the raw CSV datasets into MySQL.
+- Reviewed table structures and available columns.
+- Inspected the data dictionary.
 
 ### Step 2 — Data Profiling
 
-Performed initial data exploration to understand:
+Investigated:
 
 - Table structures and column definitions.
-- Record counts across operational tables.
+- Record counts.
 - Available date ranges.
 - Selected-column NULL values.
-- Sample records and data dictionary definitions.
+- Sample records.
+- Data dictionary definitions.
 
 ### Step 3 — Data Quality Checks
 
@@ -89,7 +126,7 @@ Performed SQL validation to investigate:
 
 ### Step 4 — Relationship Validation
 
-Validated logical relationships between operational tables:
+Validated logical relationships between:
 
 - Website sessions and pageviews.
 - Website sessions and orders.
@@ -100,40 +137,42 @@ Validated logical relationships between operational tables:
 
 All 16 relationship validation checks returned zero unmatched or inconsistent records.
 
-*Note: These checks validate logical relationships in the data. They do not mean physical foreign key constraints were created in the database.*
+**Note:** These checks validate logical relationships in the data. They do not mean physical foreign key constraints were created in the database.
 
 ### Step 5 — Business Analysis
 
-Developed 16 SQL queries across seven analytical sections to answer business questions and calculate relevant performance metrics.
+Developed 16 SQL queries across seven analytical sections to investigate business performance and identify differences between business segments.
 
 ## 5. SQL Analysis Structure
 
-The SQL analysis is organized into two main analytical pages.
+The SQL analysis is organized into two analytical pages.
 
 ### Page 1 — Sales & Product Performance
 
-| Section | Analysis | Business Focus |
+| Section | Analysis | Diagnostic Focus |
 |---|---|---|
-| 1 | Overall Sales Performance | Revenue, COGS, gross profit, margin, and AOV |
-| 2 | Transaction-Level Sales Analysis | Individual order-item records and profitability |
-| 3 | Product Performance & Profitability | Product revenue, contribution, and gross profit |
-| 4 | Customer Purchase Performance | Customer purchasing frequency and revenue contribution |
+| 1 | Overall Sales Performance | Establish the overall profitability baseline |
+| 2 | Transaction-Level Sales Analysis | Examine individual order-item sales and profitability |
+| 3 | Product Performance & Profitability | Investigate differences in revenue contribution and margins |
+| 4 | Customer Purchase Performance | Investigate customer purchasing concentration and repeat behavior |
 
 ### Page 2 — Marketing & Business Trends
 
-| Section | Analysis | Business Focus |
+| Section | Analysis | Diagnostic Focus |
 |---|---|---|
-| 5 | Acquisition & Conversion Performance | Traffic sources and device conversion |
-| 6 | Monthly Sales & YoY Trends | Monthly revenue, orders, and product trends |
-| 7 | Refund & Revenue Impact | Refund amounts and product-level refund ratios |
+| 5 | Acquisition & Conversion Performance | Investigate conversion differences across acquisition sources and devices |
+| 6 | Monthly Sales & YoY Trends | Examine monthly growth patterns and business performance changes |
+| 7 | Refund & Revenue Impact | Investigate product-level refund exposure |
 
-**SQL file:** `sql/05_business_analysis.sql`
+SQL file: `02_sql/05_business_analysis.sql`
 
-## 6. Key Business Findings & Insights
+## 6. Diagnostic Findings & Business Insights
 
-The following findings are based on the SQL analysis outputs.
+The following findings are based on the available SQL analysis outputs.
 
-### 6.1 Overall Sales Performance
+Each section distinguishes between observed evidence, diagnostic interpretation, and areas requiring further investigation.
+
+### 6.1 Overall Sales & Profitability Diagnosis
 
 | Metric | Result |
 |---|---:|
@@ -145,13 +184,25 @@ The following findings are based on the SQL analysis outputs.
 | Gross Profit Margin | 62.74% |
 | Average Order Value | $59.99 |
 
+**Diagnostic Findings**
+
+The business generated approximately $1.94 million in recorded revenue, with $1.22 million in gross profit.
+
+The overall gross profit margin was 62.74%.
+
+This establishes a profitability baseline for investigating differences between individual products and customer segments.
+
 **Business Interpretation**
 
-The business generated approximately $1.94 million in recorded revenue and $1.22 million in gross profit, with an overall gross profit margin of 62.74%.
+Overall profitability is positive at the gross profit level. However, the aggregate margin does not show whether profitability is evenly distributed across products.
 
-This provides a baseline for evaluating product profitability and overall commercial performance.
+The product-level analysis is therefore necessary to identify which products contribute most to gross profit and which achieve stronger margins.
 
-### 6.2 Product Performance & Profitability
+**Diagnostic Direction**
+
+Investigate product-level revenue, COGS, and gross profit contribution rather than relying exclusively on overall profitability.
+
+### 6.2 Product Revenue & Profitability Diagnosis
 
 | Product | Revenue | Revenue Contribution | Gross Profit Margin |
 |---|---:|---:|---:|
@@ -160,42 +211,68 @@ This provides a baseline for evaluating product profitability and overall commer
 | The Birthday Sugar Panda | $229,260.15 | 11.83% | 68.49% |
 | The Hudson River Mini bear | $150,489.82 | 7.76% | 68.36% |
 
-**Key Findings**
+**Diagnostic Findings**
 
-- The Original Mr. Fuzzy contributed 62.47% of total product revenue.
-- It also generated the highest absolute gross profit at $738,893.00.
-- The Birthday Sugar Panda recorded the highest gross profit margin at 68.49%.
-- The Hudson River Mini bear recorded a gross profit margin of 68.36%.
+1. The Original Mr. Fuzzy generated 62.47% of total product revenue.
+2. It also generated the highest absolute gross profit at $738,893.00.
+3. Its gross profit margin of 61.01% was lower than the other three products.
+4. The Birthday Sugar Panda achieved the highest gross profit margin at 68.49%.
+5. The Hudson River Mini bear achieved a gross profit margin of 68.36%.
 
-**Business Interpretation**
+**Diagnostic Interpretation**
 
-The Original Mr. Fuzzy is the main revenue contributor and an important product for maintaining sales performance.
+The Original Mr. Fuzzy dominates overall revenue and gross profit because of its significantly larger revenue contribution.
 
-However, the Birthday Sugar Panda and Hudson River Mini bear achieved higher gross profit margins. This shows why product performance should be evaluated using both revenue contribution and profitability rather than revenue alone.
+However, its gross profit margin is lower than the other products.
 
-### 6.3 Customer Purchase Behavior
+This indicates a difference between revenue scale and margin efficiency.
+
+The Birthday Sugar Panda and Hudson River Mini bear demonstrate stronger gross profit margins despite contributing smaller revenue amounts.
+
+**Potential Business Implications**
+
+- The Original Mr. Fuzzy is important for maintaining overall revenue and gross profit.
+- Higher-margin products may represent opportunities for further commercial evaluation.
+- Product strategy should consider both absolute gross profit and gross profit margin.
+
+The available data does not establish why product margins differ.
+
+### 6.3 Customer Purchasing Behavior Diagnosis
 
 | Customer Type | Customers | Revenue |
 |---|---:|---:|
 | One-Time Customer | 31,105 | $1,864,153.31 |
 | Repeat Customer | 591 | $74,356.44 |
 
-**Key Findings**
+**Diagnostic Findings**
 
 - Approximately 98.14% of customers made only one recorded purchase.
-- Only 1.86% of customers made more than one recorded purchase.
-- One-time customers contributed approximately 96.16% of total revenue.
-- Repeat customers contributed approximately 3.84% of total revenue.
+- Approximately 1.86% made more than one recorded purchase.
+- One-time customers contributed approximately 96.16% of revenue.
+- Repeat customers contributed approximately 3.84% of revenue.
 
-**Business Interpretation**
+**Diagnostic Interpretation**
 
-The customer base is heavily concentrated around one-time purchases.
+The business demonstrates a strong concentration of revenue among customers who made only one recorded purchase.
 
-This highlights a potential opportunity to improve customer retention and encourage repeat purchases through post-purchase engagement, personalized product recommendations, and targeted re-engagement campaigns.
+This indicates that repeat purchasing contributes relatively little to overall recorded revenue.
 
-However, the available data does not explain why customers did not return.
+The gap between one-time and repeat customers highlights customer retention as an area requiring further investigation.
 
-### 6.4 Acquisition Source Performance
+However, the dataset does not explain why customers did not return.
+
+Possible areas to investigate include:
+
+- Time between first and subsequent purchases.
+- Customer purchasing intervals.
+- Product combinations among repeat customers.
+- Customer re-engagement opportunities.
+
+**Potential Business Implication**
+
+Customer retention initiatives may provide an opportunity to increase repeat purchasing, but their effectiveness would need to be measured using additional customer-level analysis.
+
+### 6.4 Acquisition Source Conversion Diagnosis
 
 | Acquisition Source | Sessions | Converted Sessions | Conversion Rate |
 |---|---:|---:|---:|
@@ -204,82 +281,130 @@ However, the available data does not explain why customers did not return.
 | gsearch | 316,035 | 21,333 | 6.75% |
 | socialbook | 10,685 | 343 | 3.21% |
 
-**Key Findings**
+**Diagnostic Findings**
 
-- gsearch generated the highest traffic volume and the highest number of converted sessions.
+- gsearch generated the highest traffic volume.
+- gsearch also generated the highest number of converted sessions.
 - bsearch achieved a higher conversion rate than gsearch.
-- Unknown / NULL recorded the highest observed conversion rate, but its acquisition attribution is incomplete.
+- Unknown / NULL recorded the highest observed conversion rate, but attribution is incomplete.
 - socialbook recorded the lowest conversion rate at 3.21%.
 
-**Business Interpretation**
+**Diagnostic Interpretation**
 
-gsearch is the largest traffic acquisition source, while bsearch demonstrates a slightly stronger conversion rate.
+Traffic volume and conversion efficiency show different patterns.
 
-The lower conversion rate from socialbook may justify further investigation into audience targeting, landing page relevance, and traffic quality.
+Although gsearch generates the largest number of sessions and conversions, its conversion rate is lower than bsearch.
 
-However, advertising spend and acquisition costs are not available, so campaign ROI and ROAS cannot be determined from this dataset.
+This indicates that the largest traffic acquisition source is not necessarily the most efficient based on conversion rate alone.
 
-### 6.5 Device Conversion Performance
+The socialbook conversion rate is substantially lower than the other identified acquisition sources.
+
+This creates a diagnostic question around traffic quality, audience relevance, and landing page performance.
+
+However, the available data does not establish which factor explains the conversion differences.
+
+**Potential Business Implications**
+
+- Investigate why bsearch converts at a higher rate than gsearch.
+- Review socialbook traffic quality and landing page relevance.
+- Improve acquisition attribution for Unknown / NULL sessions.
+- Evaluate acquisition efficiency using advertising cost data if available.
+
+Campaign ROI and ROAS cannot be determined without advertising expenditure data.
+
+### 6.5 Device Conversion Diagnosis
 
 | Device Type | Sessions | Converted Sessions | Conversion Rate |
 |---|---:|---:|---:|
 | Desktop | 327,027 | 27,805 | 8.50% |
 | Mobile | 145,844 | 4,508 | 3.09% |
 
-**Key Finding**
+**Diagnostic Findings**
 
 Desktop conversion performance is approximately 2.75 times higher than mobile conversion performance.
 
-**Business Interpretation**
+The conversion rate difference is approximately 5.41 percentage points.
 
-The conversion gap between desktop and mobile suggests an opportunity to investigate the mobile shopping experience.
+**Diagnostic Interpretation**
 
-Potential areas for further investigation include:
+The difference indicates that mobile sessions convert at a substantially lower rate than desktop sessions.
 
-- Mobile website loading speed.
-- Navigation and product discovery.
-- Checkout usability.
-- Mobile payment experience.
+This is an important performance gap because mobile represents a meaningful portion of total website traffic.
 
-The current dataset identifies the conversion difference but does not establish its underlying cause.
+The difference warrants further investigation into the mobile customer journey.
 
-### 6.6 Monthly Sales & Year-over-Year Trends
+Potential diagnostic areas include:
 
-**Key Findings**
+- Pageview navigation and exit patterns.
+- Product page engagement.
+- Progression from product pages to cart.
+- Checkout progression.
+- Differences in session behavior between devices.
 
-- Monthly revenue increased across all 12 calendar months when comparing 2014 with 2013.
-- Monthly order volume also increased across all 12 calendar months in the same comparison.
+**Potential Business Implications**
+
+Investigate mobile shopping and checkout usability before implementing website changes.
+
+The current dataset identifies the conversion gap but does not establish its underlying cause.
+
+### 6.6 Monthly Sales & Year-over-Year Growth Diagnosis
+
+**Diagnostic Findings**
+
+- Monthly revenue increased across all 12 calendar months in 2014 compared with 2013.
+- Monthly order volume also increased across all 12 calendar months.
 - December 2014 recorded the highest monthly revenue at $144,823.02.
-- December 2014 also recorded 2,314 orders.
+- December 2014 recorded 2,314 orders.
 - March 2015 is an incomplete month because the latest recorded order date is 19 March 2015.
 
-**Business Interpretation**
+**Diagnostic Interpretation**
 
-The increase in both revenue and order volume indicates that the business experienced substantial growth between 2013 and 2014.
+Revenue and order volume increased together across all calendar months when comparing 2013 with 2014.
 
-The higher revenue was supported by increased order volume, rather than relying solely on changes in average order value.
+This suggests that the observed revenue growth was supported by increased order activity rather than relying exclusively on changes in average order value.
 
-November and December also recorded relatively strong sales activity. However, recurring monthly patterns alone are insufficient to establish seasonality.
+December 2014 recorded the highest monthly revenue and order volume among the reported findings.
 
-### 6.7 Product Revenue Trends
+However, monthly performance alone cannot determine whether growth was driven by increased website traffic, improved conversion, changes in product mix, or other commercial factors.
 
-**Key Findings**
+**Potential Business Implications**
+
+Further investigate:
+
+- Monthly website session growth.
+- Monthly session conversion rates.
+- Monthly average order value.
+- Product-level revenue contribution over time.
+
+These comparisons would help distinguish traffic-driven growth from conversion-driven or transaction-value-driven growth.
+
+### 6.7 Product Revenue Development Diagnosis
+
+**Diagnostic Findings**
 
 - The Original Mr. Fuzzy was the only product with recorded sales during the initial period in 2012.
 - The Forever Love Bear first appeared in recorded sales in January 2013.
 - The Birthday Sugar Panda first appeared in recorded sales in December 2013.
 - The Hudson River Mini bear first appeared in recorded sales in February 2014.
-- By 2014, all four products were contributing to monthly revenue.
+- By 2014, all four products contributed to monthly revenue.
 
-**Business Interpretation**
+**Diagnostic Interpretation**
 
-The product portfolio expanded over the observed period, while The Original Mr. Fuzzy continued to contribute the largest share of revenue.
+The business expanded its recorded product sales portfolio over the observed period.
 
-This highlights the importance of monitoring both the growth of newer products and the continued performance of established products.
+The Original Mr. Fuzzy remained the dominant revenue contributor, while newer products contributed additional revenue streams.
 
-*First observed sales do not necessarily represent official product launch dates.*
+This suggests that the business developed a broader product portfolio without displacing its original main revenue contributor.
 
-### 6.8 Refund Performance
+However, the available analysis does not establish whether newer products increased total demand or shifted purchases away from existing products.
+
+First observed sales do not necessarily represent official product launch dates.
+
+**Potential Business Implications**
+
+Monitor product revenue contribution over time to understand whether newer products are developing sustainable sales performance.
+
+### 6.8 Refund & Revenue Impact Diagnosis
 
 **Overall Refund Performance**
 
@@ -300,75 +425,132 @@ This highlights the importance of monitoring both the growth of newer products a
 | The Forever Love Bear | 129 | $7,738.71 | 2.23% |
 | The Hudson River Mini bear | 64 | $1,919.36 | 1.28% |
 
-**Key Findings**
+**Diagnostic Findings**
 
-- Total recorded refunds amounted to $85,338.69.
+- Recorded refunds totalled $85,338.69.
 - Refunds represented 4.40% of gross order revenue.
 - The Original Mr. Fuzzy recorded the highest refund amount.
 - The Birthday Sugar Panda recorded the highest refund-to-revenue ratio at 6.04%.
 - The Hudson River Mini bear recorded the lowest ratio at 1.28%.
 
-**Business Interpretation**
+**Diagnostic Interpretation**
 
-Although The Original Mr. Fuzzy generated the highest refund amount, this should be considered alongside its significantly larger revenue contribution.
+The Original Mr. Fuzzy generated the highest absolute refund amount, but it also represents the largest share of product revenue.
 
-The Birthday Sugar Panda has the highest refund-to-revenue ratio, making it a potential candidate for further investigation.
+The Birthday Sugar Panda presents a different pattern: it has the highest refund-to-revenue ratio despite contributing a smaller share of total revenue.
+
+This indicates that refund exposure should be evaluated relative to product revenue rather than by refund amount alone.
+
+The Birthday Sugar Panda therefore represents a potential priority for further investigation.
+
+**Potential Business Implications**
+
+- Investigate refund reasons by product.
+- Compare refunded and non-refunded order-item characteristics.
+- Examine refund timing.
+- Evaluate whether refund patterns are concentrated within specific periods.
 
 Refund reasons are not included in the dataset, so no specific cause can be established.
 
-## 7. Business Recommendations
+## 7. Cross-Analysis: Connecting Business Findings
 
-Based on the observed findings, the following areas deserve further business investigation.
+This section connects findings across different analytical areas to provide a broader diagnostic perspective.
 
-| Area | Recommendation | Business Purpose |
+| Observed Pattern | Related Findings | Diagnostic Implication |
 |---|---|---|
-| Customer Retention | Explore post-purchase engagement and re-engagement campaigns | Encourage repeat purchases |
-| Mobile Conversion | Investigate mobile website and checkout usability | Identify possible conversion barriers |
-| Acquisition Marketing | Review traffic quality and campaign performance by source | Improve acquisition efficiency |
-| Product Strategy | Monitor revenue contribution and gross profit margin together | Support product-level decisions |
-| Refund Management | Investigate refund reasons, particularly for products with higher refund ratios | Identify potential product or service issues |
-| Sales Monitoring | Track monthly revenue and order growth | Monitor business performance over time |
+| Revenue concentration | Original Mr. Fuzzy contributes 62.47% of revenue | Overall performance depends heavily on one product |
+| Margin differences | Original Mr. Fuzzy has a 61.01% margin versus 68.49% for Birthday Sugar Panda | Revenue leadership does not necessarily mean margin leadership |
+| Customer concentration | 98.14% of customers are one-time purchasers | Repeat purchasing represents a potential retention opportunity |
+| Acquisition efficiency gap | bsearch converts at 7.19% versus gsearch at 6.75% | Traffic volume and conversion efficiency should be evaluated separately |
+| Device conversion gap | Desktop converts at 8.50% versus mobile at 3.09% | Mobile customer journey requires further investigation |
+| Refund exposure | Birthday Sugar Panda has the highest refund ratio at 6.04% | Product-level refund performance deserves additional investigation |
+| Business growth | All 12 months of 2014 exceeded corresponding 2013 months in revenue and orders | Further investigation should identify the drivers of growth |
 
-These recommendations are areas for further investigation, not confirmed solutions to the observed performance differences.
+### Overall Diagnostic Assessment
 
-## 8. Data Limitations & Assumptions
+The available findings reveal several important performance patterns:
 
-Several limitations were identified during the profiling and analysis process.
+1. **Product dependency:** A substantial proportion of revenue comes from The Original Mr. Fuzzy.
+2. **Profitability differences:** Products with lower revenue contributions can achieve stronger gross profit margins.
+3. **Customer retention gap:** Most recorded customers made only one purchase.
+4. **Acquisition efficiency differences:** Acquisition sources generate different conversion rates despite differences in traffic volume.
+5. **Mobile conversion gap:** Mobile sessions convert substantially less frequently than desktop sessions.
+6. **Refund exposure differences:** Product-level refund ratios vary considerably.
+7. **Business growth:** Revenue and order volume increased across all calendar months in 2014 compared with 2013.
 
-1. **No explicit order-item quantity field:** The dataset does not provide a separate quantity column at the order-item level. `items_purchased` is an order-level field and should not automatically be treated as verified product-level physical units.
-2. **No customer demographics:** Age, gender, and other demographic attributes are unavailable.
-3. **No payment method or discount information:** Payment preferences and discount effectiveness cannot be evaluated.
-4. **No inventory information:** Stock levels, availability, and inventory turnover cannot be analyzed.
-5. **Incomplete acquisition attribution:** NULL `utm_source` values are retained as Unknown / NULL and are not automatically classified as Direct Traffic.
-6. **No advertising cost data:** ROI, ROAS, and acquisition cost cannot be calculated.
-7. **No refund reasons:** The analysis identifies refund amounts and ratios but cannot establish why refunds occurred.
-8. **Incomplete March 2015 data:** March 2015 must be treated as a partial month in monthly comparisons.
+These patterns identify where business performance differs and where additional investigation may provide value.
 
-## 9. Project Structure
+They do not independently establish causal relationships.
+
+## 8. Business Recommendations
+
+Based on the diagnostic findings, the following actions are recommended for further investigation.
+
+| Area | Recommended Investigation | Business Purpose |
+|---|---|---|
+| Product Dependency | Evaluate the revenue and gross profit contribution of the main product | Understand concentration risk |
+| Product Profitability | Compare pricing, COGS, and margins across products | Identify profitability improvement opportunities |
+| Customer Retention | Investigate purchase intervals and repeat customer behavior | Understand retention opportunities |
+| Mobile Conversion | Examine mobile page navigation and checkout progression | Identify potential conversion barriers |
+| Acquisition Marketing | Compare conversion performance with campaign expenditure | Evaluate acquisition efficiency |
+| Refund Management | Investigate refund reasons and product-level patterns | Identify possible operational or product issues |
+| Business Growth | Compare traffic, conversion, AOV, and order growth | Understand the drivers of revenue growth |
+
+These recommendations are investigation priorities rather than confirmed solutions.
+
+## 9. Data Limitations & Assumptions
+
+The following limitations affect the scope of diagnostic conclusions.
+
+- **No explicit order-item quantity field:** The dataset does not provide a separate quantity column at the order-item level. `items_purchased` is an order-level field and should not automatically be treated as verified product-level physical units.
+- **No customer demographics:** Age, gender, and other demographic attributes are unavailable.
+- **No payment method or discount information:** Payment preferences and discount effectiveness cannot be evaluated.
+- **No inventory information:** Stock levels, availability, and inventory turnover cannot be analyzed.
+- **Incomplete acquisition attribution:** NULL `utm_source` values are retained as Unknown / NULL and are not automatically classified as Direct Traffic.
+- **No advertising cost data:** ROI, ROAS, and acquisition cost cannot be calculated.
+- **No refund reasons:** Refund amounts and ratios can be evaluated, but the reasons behind refunds cannot be established.
+- **Incomplete March 2015 data:** March 2015 must be treated as a partial month in monthly comparisons.
+- **No causal evidence:** Observed relationships and performance differences do not independently prove the reasons behind business outcomes.
+
+Diagnostic findings should therefore be interpreted as evidence-based observations and investigation opportunities rather than definitive explanations of causation.
+
+## 10. Project Structure
 
 ```text
-Maven Fuzzy Factory/
+Second Project/
 │
-├── data/
-│   ├── raw/
-│   └── processed/
+├── 01_data/
+│   └── raw/
+│       └── Maven+Fuzzy+Factory/
+│           ├── maven_fuzzy_factory_data_dictionary.csv
+│           ├── order_item_refunds.csv
+│           ├── order_items.csv
+│           ├── orders.csv
+│           ├── products.csv
+│           ├── website_pageviews.csv
+│           └── website_sessions.csv
 │
-├── sql/
+├── 02_sql/
 │   ├── 01_maven_fuzzy_factory_full_setup.sql
 │   ├── 02_data_profiling.sql
 │   ├── 03_data_quality_checks.sql
 │   ├── 04_relationship_validation.sql
 │   └── 05_business_analysis.sql
 │
-├── reports/
+├── 03_python/
 │
-├── README.md
-└── LICENSE
+├── 04_dashboard/
+│
+├── .gitignore
+└── README.md
 ```
 
-## 10. Skills Demonstrated
+Note: Raw CSV datasets are maintained locally and excluded from Git tracking through `.gitignore`.
 
-**SQL & Database Analysis**
+## 11. Skills Demonstrated
+
+### SQL & Database Analysis
+
 - MySQL
 - SELECT, WHERE, GROUP BY, ORDER BY
 - Aggregate functions
@@ -379,44 +561,51 @@ Maven Fuzzy Factory/
 - Date and time functions
 - DISTINCT counting
 - Data profiling and validation
-
-**Data Analytics**
-- Data quality assessment
 - Logical relationship validation
-- Revenue and profitability analysis
-- Customer purchase behavior analysis
-- Acquisition and conversion analysis
-- Monthly and year-over-year trend analysis
-- Refund analysis
-- Business interpretation and recommendations
 
-**Business Intelligence**
+### Diagnostic Data Analytics
+
+- Revenue and profitability investigation
+- Product contribution and margin comparison
+- Customer purchasing concentration analysis
+- Acquisition source conversion comparison
+- Device-level conversion analysis
+- Monthly and year-over-year performance comparison
+- Product revenue development analysis
+- Refund exposure investigation
+- Cross-analysis of business performance patterns
+- Evidence-based business interpretation
+
+### Business Intelligence
+
 - KPI identification
 - Business question formulation
 - Analytical reporting
 - Dashboard planning
+- Business performance monitoring
 - Translating SQL outputs into business insights
+- Developing investigation-oriented business recommendations
 
-## 11. Conclusion
+## 12. Conclusion
 
-This project demonstrates an end-to-end SQL-based analytical workflow, beginning with database exploration and data validation before progressing into business performance analysis.
+This project demonstrates an end-to-end SQL-based analytical workflow, progressing from database exploration and data validation to business performance investigation.
+
+Rather than focusing exclusively on what happened, the diagnostic analysis investigates differences between products, customer segments, acquisition sources, devices, and business periods.
 
 The findings highlight several important areas:
 
-- The Original Mr. Fuzzy is the primary revenue contributor.
-- Customer purchases are heavily concentrated among one-time customers.
-- Desktop sessions convert at a substantially higher rate than mobile sessions.
+- Revenue is heavily concentrated in The Original Mr. Fuzzy.
+- Higher-margin products do not necessarily generate the highest revenue.
+- The customer base is heavily concentrated around one-time purchases.
+- Acquisition sources demonstrate different conversion performance.
+- Desktop sessions convert substantially better than mobile sessions.
 - Revenue and order volume increased across all calendar months in 2014 compared with 2013.
-- Product-level refund ratios vary, highlighting opportunities for further investigation.
+- Product-level refund exposure varies, with the Birthday Sugar Panda recording the highest refund-to-revenue ratio.
 
-Beyond writing SQL queries, the project emphasizes understanding data structure, validating relationships, selecting appropriate analytical grains, avoiding duplicated aggregations, and interpreting results in a business context.
+The project also emphasizes the importance of validating data relationships, selecting appropriate analytical grains, avoiding duplicated aggregations, and recognizing the limitations of available information.
 
-The overall goal is to demonstrate how SQL can transform operational data into actionable business insights.
+The overall objective is to demonstrate how SQL can be used not only to report business performance but also to investigate performance gaps, identify contributing patterns, and support evidence-based business decisions.
 
----
+**Project Status: SQL-Based Diagnostic Analysis Completed**
 
-**Project Status:** SQL Business Analysis Completed
-
-**Author:** Abdullah Nasir#   m a v e n - f u z z y - f a c t o r y 
- 
- 
+**Author:** Abdullah Nasir
